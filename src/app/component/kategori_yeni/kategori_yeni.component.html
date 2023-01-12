@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row">
+    <div class="form-group">
+      <button class="btn btn-dark mt-2" (click)="Ekle(ModalEkleDuzenle)">
+        Kategori Ekle
+      </button>
+    </div>
+
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Kategori</th>
+            <th scope="col">Düzenle</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kategori of kategoriler">
+            <td>{{ kategori.adi }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-warning"
+                (click)="Duzenle(kategori, ModalEkleDuzenle)"
+              >
+                Düzenle
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-sm btn-danger"
+                (click)="Sil(kategori, ModalSil)"
+              >
+                Sil
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" #ModalEkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="KategoriEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-black">
+          <h5 class="modal-title">{{ modalBaslik }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input
+              type="hidden"
+              class="form-control"
+              formControlName="kategoriId"
+            />
+            <label>Kategori Adı</label>
+            <input
+              type="text"
+              class="form-control mt-1"
+              formControlName="adi"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" value="Kaydet" />
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            İptal
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" #ModalSil>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-black">
+        <h5 class="modal-title">{{ modalBaslik }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h6 *ngIf="secKategori">
+          <b>{{ secKategori.adi }}</b> Adlı Kategori Silinecektir Onaylıyor
+          Musunuz ?
+        </h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="KategoriSil()">
+          Sil
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          İptal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

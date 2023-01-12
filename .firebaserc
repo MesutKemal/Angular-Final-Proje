@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-final-1effc": {
+      "hosting": {
+        "dersdagitim": [
+          "angular-final-1effc"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-final-1effc"
+  }
+}

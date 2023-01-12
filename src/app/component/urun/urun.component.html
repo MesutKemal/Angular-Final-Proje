@@ -1,0 +1,139 @@
+<div class="container">
+  <div class="row">
+    <button
+      class="btn btn-dark mt-2"
+      style="width: 100px"
+      (click)="Ekle(modalEkleDuzenle)"
+    >
+      Ürün Ekle
+    </button>
+    <div class="row justify-content-center">
+      <div
+        class="card mt-3 ms-3"
+        style="width: 18rem"
+        *ngFor="let urun of urunler"
+      >
+        <img [src]="urun.resim" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">{{ urun.adi }}</h5>
+          <h3>
+            <p class="card-text">{{ urun.aciklama }}</p>
+          </h3>
+          <h3>
+            <p class="card-text">{{ urun.fiyat | currency : "₺" }}</p>
+          </h3>
+        </div>
+        <div class="card-footer">
+          <button
+            class="btn btn-outline-warning ms-2"
+            (click)="Duzenle(urun, modalEkleDuzenle)"
+          >
+            Düzenle
+          </button>
+
+          <button
+            class="btn btn-outline-danger ms-2"
+            (click)="Sil(urun, modalSil)"
+          >
+            Sil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" #modalEkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="UrunEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">{{ modalBaslik }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Ürün Adı</label>
+            <input type="text" class="form-control" formControlName="adi" />
+            <label>Kategori</label>
+            <select class="form-control" formControlName="kategoriId">
+              <option
+                [value]="kategori.kategoriId"
+                *ngFor="let kategori of kategoriler"
+              >
+                {{ kategori.adi }}
+              </option>
+            </select>
+            <label>Özellikler</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="aciklama"
+            />
+            <label>Resim Linki</label>
+            <input type="text" class="form-control" formControlName="resim" />
+            <label>Fiyat</label>
+            <input type="text" class="form-control" formControlName="fiyat" />
+            <input
+              type="hidden"
+              class="form-control"
+              formControlName="urunId"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-outline-primary" value="Kaydet" />
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" #modalSil>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">{{ modalBaslik }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h6 *ngIf="secUrun">
+          {{ secUrun.adi }} adlı ürün silinecektir, onaylıyor musunuz?
+        </h6>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-outline-danger"
+          *ngIf="secUrun"
+          (click)="UrunSil()"
+        >
+          Sil
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          data-bs-dismiss="modal"
+        >
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

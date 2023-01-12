@@ -1,0 +1,141 @@
+<div style="height: 50px"></div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h3>Üyeler</h3>
+      <button class="btn btn-dark" (click)="Ekle(modalEkleDuzenle)">
+        Üye Ekle
+      </button>
+      <table class="table table-hover mt-3">
+        <thead>
+          <th>Adı Soyadı</th>
+          <th>Telefon</th>
+          <th>E-Posta</th>
+          <th>Adres</th>
+
+          <th>Durum</th>
+          <th>Düzenle</th>
+          <th>Sil</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let uye of uyeler">
+            <td>{{ uye.displayName }}</td>
+            <td>{{ uye.tel }}</td>
+            <td>{{ uye.email }}</td>
+            <td>{{ uye.adres }}</td>
+            <td *ngIf="uye.admin == '1'">Admin</td>
+            <td *ngIf="uye.admin == '0'">Kullanıcı</td>
+
+            <td>
+              <button
+                class="btn btn-outline-warning btn-sm"
+                (click)="Duzenle(uye, modalEkleDuzenle)"
+              >
+                Düzenle
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="Sil(uye, modalSil)"
+              >
+                Sil
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex=" -1" #modalEkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="UyeEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white">{{ modalBaslik }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body bg-light text-black">
+          <div class="form-group">
+            <label>Adı Soyadı</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="displayName"
+            />
+            <label>Telefon</label>
+            <input type="text" class="form-control" formControlName="tel" />
+            <label>E-Posta</label>
+            <input type="text" class="form-control" formControlName="email" />
+            <label>Adres</label>
+            <input type="text" class="form-control" formControlName="adres" />
+            <label>Parola</label>
+            <input type="text" class="form-control" formControlName="parola" />
+            <label>Üye Yetkisi</label>
+            <select class="form-control" formControlName="admin">
+              <option value="1">Admin</option>
+              <option value="0">Kullanıcı</option>
+            </select>
+            <input type="hidden" class="form-control" formControlName="uid" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-outline-primary" value="Kaydet" />
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" #modalSil>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">{{ modalBaslik }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-black">
+        <h6 *ngIf="secUye">
+          {{ secUye.displayName }} adlı kullanıcı silinecektir, onaylıyor
+          musunuz?
+        </h6>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-outline-danger"
+          *ngIf="secUye"
+          (click)="UyeSil()"
+        >
+          Sil
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          data-bs-dismiss="modal"
+        >
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

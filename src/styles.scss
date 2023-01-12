@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+.form-control:focus {
+    border-color: #212529 !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #212529 !important;
+}
+
+
+
+body {
+    background-color: rgb(255, 255, 255) !important;
+    min-height: 100% !important;
+}
+
+.table-hover>tbody>tr:hover>* {
+    color: gray;
+}
