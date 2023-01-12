@@ -1,4 +1,4 @@
-![IMG_20221009_115604](https://user-images.githubusercontent.com/117820883/212100323-ad4a1a3b-445c-4db5-89a6-93073217f318.jpg)
+
 # HepsiTrend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
